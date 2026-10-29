@@ -1,6 +1,6 @@
 ---
 plan: morning-digest
-status: ready
+status: done
 owner: rook
 opened: 2026-10-29
 ---
@@ -77,3 +77,28 @@ page again with `LANE_MARKER` unset (the banner reads "no marker set") and uploa
 link. Move this plan to `docs/plans/done/` with its issue list.
 
 Done when: the preview link no longer shows the lane marker.
+
+## Issues
+
+| # | Issue |
+|---|-------|
+| [1](https://github.com/mgawinski/mega-s01e04-rig/issues/1) | Digest types and reader contract |
+| [2](https://github.com/mgawinski/mega-s01e04-rig/issues/2) | Run log reader |
+| [3](https://github.com/mgawinski/mega-s01e04-rig/issues/3) | Digest HTML page |
+| [4](https://github.com/mgawinski/mega-s01e04-rig/issues/4) | Digest JSON endpoint |
+| [5](https://github.com/mgawinski/mega-s01e04-rig/issues/5) | Board links and counts |
+| [6](https://github.com/mgawinski/mega-s01e04-rig/issues/6) | Digest route tests |
+| [7](https://github.com/mgawinski/mega-s01e04-rig/issues/7) | Public review preview |
+| [8](https://github.com/mgawinski/mega-s01e04-rig/issues/8) | Preview cleanup and plan archive |
+
+## Completion
+
+- The reviewer explicitly confirmed seeing the preview before cleanup; issue #7 is closed.
+- The clean page was exported over HTTP from the real app with `LANE_MARKER` unset, not by
+  replacing saved HTML. All five sample jobs, one bad line, inline styles and absence of
+  client scripts were verified locally.
+- After explicit human approval, the coordinator replaced the canonical preview at
+  https://mega-s01e04-rig.pages.dev/ and verified that it exactly matches the clean export.
+  The banner reads "no marker set" and the prior lane marker is absent.
+- The coordinator confirmed deletion of the old marked deployment: its public URL returns
+  HTTP 404, the marker is absent, and only the clean deployment remains in the deployment list.
