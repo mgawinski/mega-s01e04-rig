@@ -1,6 +1,6 @@
 import type { Hono } from 'hono';
 import type { RigConfig } from '../config.js';
-import { readNight } from '../digest/read-night.js';
+import { readNight, validDate } from '../digest/read-night.js';
 import type { ReadNight } from '../digest/types.js';
 import { lane } from '../lane.js';
 import { DigestPage } from '../views/digest.js';
@@ -10,7 +10,7 @@ export function registerDigestPage(app: Hono, config: RigConfig, read: ReadNight
   app.get('/digest/:night', (c) => {
     const night = c.req.param('night');
     // Validate before calling the reader: URL input must never become a filesystem path.
-    if (!/^\d{4}-\d{2}-\d{2}$/.test(night)) return c.notFound();
+    if (!validDate(night)) return c.notFound();
 
     const digest = read(config.runsDir, night);
     if (digest === null) {

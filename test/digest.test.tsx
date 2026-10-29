@@ -217,7 +217,7 @@ describe('digest routes', () => {
     const sentinel = 'outside-runs-secret-job';
     writeFileSync(join(tempDir, 'outside.jsonl'), JSON.stringify(entry(sentinel)));
     const app = createApp(config);
-    for (const invalidNight of ['not-a-night', '..%2Foutside']) {
+    for (const invalidNight of ['not-a-night', '..%2Foutside', '2026-02-31', '2026-13-01']) {
       const response = await app.request(`${endpoint}/${invalidNight}`);
       expect([400, 404]).toContain(response.status);
       expect(await response.text()).not.toContain(sentinel);
