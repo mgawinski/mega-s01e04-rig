@@ -43,8 +43,10 @@ function cellText(html: string): string {
 // Inspect actual data rows, not header wording, column positions or surrounding layout.
 function tableRows(html: string) {
   return [...html.matchAll(/<tr\b[^>]*>[\s\S]*?<\/tr>/gi)].flatMap(([markup]) => {
-    const cells = [...markup.matchAll(/<td\b[^>]*>([\s\S]*?)<\/td>/gi)]
-      .map((match) => cellText(match[1]));
+    // Data rows may label jobs with a row-header th; skip only header-only rows.
+    if (!/<td\b/i.test(markup)) return [];
+    const cells = [...markup.matchAll(/<(td|th)\b[^>]*>([\s\S]*?)<\/\1>/gi)]
+      .map((match) => cellText(match[2]));
     return cells.length ? [{ markup, cells }] : [];
   });
 }
